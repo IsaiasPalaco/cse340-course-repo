@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/IsaiasPalaco/cse340-course-repo/issues"
   },
-  "homepage": "https://github.com/IsaiasPalaco/cse340-course-repo#readme"
+  "homepage": "https://github.com/IsaiasPalaco/cse340-course-repo#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
