@@ -1,7 +1,15 @@
-console.log("Hello, Node.js!");
+import express from 'express';
 
-let numeroA = 14;
-let numeroB = 20;
-let soma = numeroA + numeroB;
+const NODE_ENV = 'production';
+const PORT = 3000;
 
-console.log(`O resultado é ${soma}`);
+const app = express();
+
+app.get ('/', (req, res) => {
+    res.send('Hello from Express!');
+});
+
+app.listen(PORT, () => {
+    console.log(`server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+});
