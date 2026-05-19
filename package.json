@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/IsaiasPalaco/cse340-course-repo#readme",
   "dependencies": {
+    "ejs": "^5.0.2",
     "express": "^5.2.1"
   },
   "devDependencies": {
