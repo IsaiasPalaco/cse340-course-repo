@@ -1,30 +1,170 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+/* ==========================================================================
+   1. DESIGN VARIABLES (Colors, Fonts, and Spacings)
+   ========================================================================== */
+:root {
+  --primary-color: #0284c7;       /* Modern blue (Sky-600) */
+  --primary-hover: #0369a1;       /* Darker blue for hover states */
+  --text-main: #1f2937;           /* Dark gray for excellent contrast (Accessibility) */
+  --text-muted: #4b5563;          /* Medium gray for secondary text */
+  --bg-main: #f8fafc;             /* Light gray background for eye strain relief */
+  --bg-card: #ffffff;             /* White background for sections and cards */
+  --border-color: #e2e8f0;        /* Subtle divider lines */
+  --max-width: 1000px;            /* Maximum content width */
+  --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   2. RESET & GLOBAL STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the footer stays at the bottom */
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+/* ==========================================================================
+   3. HEADER & NAVIGATION
+   ========================================================================== */
+header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}         
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+  background-color: #f1f5f9;
+}
+
+/* ==========================================================================
+   4. MAIN CONTENT & LAYOUT
+   ========================================================================== */
+main {
+  flex: 1; /* Makes main expand to fill available vertical space */
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+h1, h2, h3 {
+  color: #0f172a;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; border-left: 4px solid var(--primary-color); padding-left: 0.75rem; }
+
+p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Styling for Lists (Organizations, Projects, and Categories) */
+ul:not(nav ul) {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr; /* Default: 1 column on mobile devices */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Transforms list items into modern "Cards" */
+ul:not(nav ul) li {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+ul:not(nav ul) li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+ul:not(nav ul) li strong {
+  color: var(--primary-color);
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   5. FOOTER
+   ========================================================================== */
+footer {
+  background-color: #0f172a; /* Contrasting dark background */
+  color: #94a3b8;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  border-top: 1px solid #1e293b;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   6. RESPONSIVENESS (MEDIA QUERIES)
+   ========================================================================== */
+@media (min-width: 640px) {
+  /* On desktop or tablets, lists turn into a 2-column Grid layout */
+  ul:not(nav ul) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Fine adjustments for very small screens (mobile phones) */
+  nav ul {
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+  
+  nav a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+}
