@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= project.title %></h1>
+    
+    <div class="project-card-detail">
+        <% 
+            // Formata a data para manter a consistência do seu app
+            const dateObj = new Date(project.date);
+            const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                year: 'numeric', month: 'long', day: 'numeric' 
+            });
+        %>
+        <p><strong>Date:</strong> <%= formattedDate %></p>
+        <p><strong>Location:</strong> <%= project.location %></p>
+        
+        <p><strong>Partner Organization:</strong> 
+            <a href="/organization/<%= project.organization_id %>" class="category-link">
+                <%= project.organization_name %>
+            </a>
+        </p>
+        
+        <p><strong>Description:</strong></p>
+        <p><em><%= project.description %></em></p>
+    </div>
+
+    <div class="project-tags-section">
+        <h3>Categories:</h3>
+        <% if (categories && categories.length > 0) { %>
+            <div class="tags-container">
+                <% categories.forEach(category => { %>
+                    <a href="/category/<%= category.category_id %>" class="tag-badge">
+                        <%= category.name %>
+                    </a>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No categories assigned to this project.</p>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

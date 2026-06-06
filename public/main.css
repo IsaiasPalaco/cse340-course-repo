@@ -99,6 +99,18 @@ p {
   font-size: 1.1rem;
 }
 
+/* General Link Styling for content */
+main a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+main a:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
 /* Styling for Lists (Organizations, Projects, and Categories) */
 ul:not(nav ul) {
   list-style: none;
@@ -131,7 +143,50 @@ ul:not(nav ul) li strong {
 }
 
 /* ==========================================================================
-   5. FOOTER
+   5. CATEGORY TAGS & DETAILS
+   ========================================================================== */
+.project-tags-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Modern Pill Badges for Categories */
+.tag-badge {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #ffffff !important; /* Ensure white text for accessibility contrast */
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease;
+}
+
+.tag-badge:hover, .tag-badge:focus {
+  background-color: var(--primary-hover);
+}
+
+/* Detailed view containers */
+.detail-card {
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   6. FOOTER
    ========================================================================== */
 footer {
   background-color: #0f172a; /* Contrasting dark background */
@@ -144,7 +199,7 @@ footer {
 }
 
 /* ==========================================================================
-   6. RESPONSIVENESS (MEDIA QUERIES)
+   7. RESPONSIVENESS (MEDIA QUERIES)
    ========================================================================== */
 @media (min-width: 640px) {
   /* On desktop or tablets, lists turn into a 2-column Grid layout */
@@ -167,4 +222,28 @@ footer {
   
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.5rem; }
+}
+
+/* Adicionar ao final do seu src/public/css/main.css */
+
+/* Links de conteúdo nas visualizações detalhadas */
+main a:not(nav a) {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+main a:not(nav a):hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Espaçamento extra para seções de sub-listagens dentro de detalhes */
+.project-card-detail, .category-detail-section {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
 }

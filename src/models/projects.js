@@ -32,5 +32,22 @@ const getProjectsByOrganizationId = async (organizationId) => {
       return result.rows;
 };
 
-// Export the model functions
-export { getAllProjects, getProjectsByOrganizationId };
+// NOVA FUNÇÃO ADICIONADA: Busca um único projeto por ID trazendo também o nome da organização parceira
+const getProjectById = async (projectId) => {
+    const query = `
+        SELECT sp.*, o.name AS organization_name 
+        FROM service_project sp
+        JOIN organization o ON sp.organization_id = o.organization_id
+        WHERE sp.project_id = $1;
+    `;
+    
+    const result = await db.query(query, [projectId]);
+    return result.rows[0]; // Retorna apenas o primeiro objeto encontrado (ou undefined)
+};
+
+// Export the model functions (Incluindo a nova função no export)
+export { 
+    getAllProjects, 
+    getProjectsByOrganizationId, 
+    getProjectById 
+};

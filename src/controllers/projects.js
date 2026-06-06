@@ -1,13 +1,47 @@
-// Import any needed model functions
-import { getAllProjects } from '../models/projects.js';
+import { getCategoriesByProjectId } from '../models/categories.js';
+import { getAllProjects, getProjectById } from '../models/projects.js';
 
-// Define any controller functions
-const showProjectsPage = async (req, res) => {
-    const projects = await getAllProjects();
-    const title = 'Service Projects';
+const showProjectsPage = async (req, res, next) => {
+    try {
+        const projects = await getAllProjects();
+        const title = 'Service Projects';
 
-    res.render('projects', { title, projects });
+        res.render('projects', { title, projects });
+    } catch (error) {
+        next(error);
+    }
 };  
 
-// Export any controller functions
-export { showProjectsPage };
+const showProjectDetailsPage = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+
+        if (!/^\d+$/.test(projectId)) {
+            return res.status(400).render('errors/400', { 
+                title: 'Bad Request', 
+                message: 'Invalid Project ID.' 
+            });
+        }
+
+        const project = await getProjectById(projectId);
+
+        if (!project) {
+            return res.status(404).render('errors/404', { 
+                title: 'Not Found', 
+                message: 'Project not found.' 
+            });
+        }
+
+        const categories = await getCategoriesByProjectId(projectId);
+        
+        res.render('project', { 
+            title: project.title, 
+            project, 
+            categories 
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { showProjectsPage, showProjectDetailsPage };

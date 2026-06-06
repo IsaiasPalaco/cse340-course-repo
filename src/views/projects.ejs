@@ -13,8 +13,14 @@
                 });
             %>
             <li>
-                <strong><%= formattedDate %>: <%= project.title %></strong> 
-                (<%= project.organization_name %>)
+                <strong>
+                    <a href="/project/<%= project.project_id %>">
+                        <%= formattedDate %>: <%= project.title %>
+                    </a>
+                </strong> 
+                
+                (<a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>)
+                
                 <br>
                 <em><%= project.description %></em>
                 <br>

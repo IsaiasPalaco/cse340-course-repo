@@ -5,7 +5,13 @@
     
     <ul>
         <% categories.forEach(category => { %>
-            <li><strong><%= category.name %></strong></li>
+            <li>
+                <strong>
+                    <a href="/category/<%= category.category_id %>" class="category-link">
+                        <%= category.name %>
+                    </a>
+                </strong>
+            </li>
         <% }); %>
     </ul>
 </main>
