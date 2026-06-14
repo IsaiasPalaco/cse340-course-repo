@@ -26,12 +26,29 @@ const showNewOrganizationForm = async (req, res) => {
 }
 
 const processNewOrganizationForm = async (req, res) => {
-    const { name, description, contactEmail } = req.body;
-    const logoFilename = 'placeholder-logo.png'; // Use the placeholder logo for all new organizations
+    try {
+        const { name, description, contactEmail } = req.body;
+        const logoFilename = 'placeholder-logo.png'; 
 
-    const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
-    res.redirect(`/organization/${organizationId}`);
+        // 1. Create the organization in the database
+        const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
+        
+        // 2. Set the flash message FIRST (before responding to the client)
+        req.flash('success', 'Organization added successfully!');
+        
+        // 3. Redirect EXACTLY ONCE and use 'return' to stop execution here
+        return res.redirect(`/organization/${organizationId}`);
+
+    } catch (error) {
+        console.error("Error occurred:", error);
+        // Optional error handling: re-render the form showing the failure
+        return res.status(500).render('new-organization', { 
+            title: 'Add New Organization', 
+            error: 'Failed to create organization.' 
+        });
+    }
 };
+
 
 // Export any controller functions
 export { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm };
