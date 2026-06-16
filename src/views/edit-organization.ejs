@@ -2,14 +2,16 @@
 <main>
     <h1><%= title %></h1>
 
- <form action="/new-organization" method="POST">
+ <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
     <div class="form-group">
       <label for="name">Organization Name</label>
       <input
         type="text"
         id="name"
-        name="name" 
-        required maxlength="150"
+        name="name"
+        value="<%= organizationDetails.name %>"
+        maxlength="150"
+        required
       />
     </div>
 
@@ -18,8 +20,9 @@
       <textarea
         id="description"
         name="description"
-        required maxlength="500"
-      ></textarea>
+        maxlength="500"
+        required
+      ><%= organizationDetails.description %></textarea>
     </div>
 
     <div class="form-group">
@@ -28,7 +31,9 @@
         type="email"
         id="contactEmail"
         name="contactEmail"
+        maxlength="255"
         required
+        value="<%= organizationDetails.contact_email %>"
       />
     </div>
 
@@ -40,11 +45,12 @@
         name="logoFilename"
         maxlength="255"
         required
-        value=""
+        value="<%= organizationDetails.logo_filename %>"
       />
     </div>
 
-    <button type="submit">Create Organization</button>
+
+    <button type="submit">Update Organization</button>
   </form>
 
 </main>

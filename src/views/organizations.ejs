@@ -5,7 +5,13 @@
     <p>Here are a few of our partner organizations:</p>
     <ul>
         <% organizations.forEach(organization => { %>
-            <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>: <%= organization.contact_email %></li>
+            <li>
+                <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                <a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>: <%= organization.contact_email %>
+                
+                <!-- O link de edição corrigido foi movido para dentro do loop -->
+                <span> | <a href="/edit-organization/<%= organization.organization_id %>">Edit</a></span>
+            </li>
         <% }); %>
     </ul>
     <p><a href="/new-organization">Add a new organization</a></p>
