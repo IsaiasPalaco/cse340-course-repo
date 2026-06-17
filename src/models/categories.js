@@ -1,45 +1,63 @@
 import db from './db.js';
 
-// Get all categories ordered alphabetically
+/**
+ * Retrieves all categories from the database.
+ */
 const getAllCategories = async () => {
-    const result = await db.query('SELECT * FROM category ORDER BY name ASC');
+    const query = `
+        SELECT category_id, name 
+        FROM category 
+        ORDER BY name ASC;
+    `;
+    const result = await db.query(query);
     return result.rows;
 };
 
-// Get category details by its primary key
-const getCategoryById = async (categoryId) => {
-    const result = await db.query('SELECT * FROM category WHERE category_id = $1', [categoryId]);
-    return result.rows[0];
-};
-
-// FIXED: Changed c.id to c.category_id to match the database schema layout
+/**
+ * Retrieves all categories assigned to a specific project.
+ */
 const getCategoriesByProjectId = async (projectId) => {
-    const queryText = `
-        SELECT c.category_id, c.name FROM category c
+    const query = `
+        SELECT c.* 
+        FROM category c
         JOIN project_category pc ON c.category_id = pc.category_id
         WHERE pc.project_id = $1
-        ORDER BY c.name ASC
+        ORDER BY c.name ASC;
     `;
-    const result = await db.query(queryText, [projectId]);
+    const result = await db.query(query, [projectId]);
     return result.rows;
 };
 
-// Get all projects associated with a specific category
-const getProjectsByCategoryId = async (categoryId) => {
-    const queryText = `
-        SELECT sp.project_id, sp.title, sp.description, sp.location, sp.date 
-        FROM service_project sp
-        JOIN project_category pc ON sp.project_id = pc.project_id
-        WHERE pc.category_id = $1
-        ORDER BY sp.date ASC
+/**
+ * Links a single category to a specific service project in the pivot table.
+ * Used internally by updateCategoryAssignments.
+ */
+const assignCategoryToProject = async (categoryId, projectId) => {
+    const query = `
+        INSERT INTO project_category (category_id, project_id)
+        VALUES ($1, $2);
     `;
-    const result = await db.query(queryText, [categoryId]);
-    return result.rows;
+    await db.query(query, [categoryId, projectId]);
 };
 
-export { 
-    getAllCategories, 
-    getCategoryById, 
-    getCategoriesByProjectId, 
-    getProjectsByCategoryId 
+/**
+ * Updates the categories assigned to a service project.
+ * Clears old associations first, then populates new selections.
+ */
+const updateCategoryAssignments = async (projectId, categoryIds) => {
+    const deleteQuery = `
+        DELETE FROM project_category
+        WHERE project_id = $1;
+    `;
+    await db.query(deleteQuery, [projectId]);
+
+    for (const categoryId of categoryIds) {
+        await assignCategoryToProject(categoryId, projectId);
+    }
+};
+
+export {
+    getAllCategories,
+    getCategoriesByProjectId,
+    updateCategoryAssignments
 };

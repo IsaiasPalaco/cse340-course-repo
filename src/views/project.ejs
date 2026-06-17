@@ -5,7 +5,7 @@
     
     <div class="project-card-detail">
         <% 
-            // Formata a data para manter a consistência do seu app
+            // Formats the date to maintain consistent presentation across the application
             const dateObj = new Date(project.date);
             const formattedDate = dateObj.toLocaleDateString('en-US', { 
                 year: 'numeric', month: 'long', day: 'numeric' 
@@ -37,6 +37,11 @@
         <% } else { %>
             <p>No categories assigned to this project.</p>
         <% } %>
+        
+        <!-- Navigation trigger to manage project categories mapping -->
+        <p style="margin-top: 20px;">
+            <a href="/assign-categories/<%= project.project_id %>" class="btn-edit">Edit Categories</a>
+        </p>
     </div>
 </main>
 
