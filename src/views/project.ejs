@@ -38,8 +38,9 @@
             <p>No categories assigned to this project.</p>
         <% } %>
         
-        <!-- Navigation trigger to manage project categories mapping -->
-        <p style="margin-top: 20px;">
+        <!-- Management and editing controls for the project -->
+        <p style="margin-top: 25px; display: flex; gap: 15px;">
+            <a href="/edit-project/<%= project.project_id %>" class="btn-edit">Edit Project</a>
             <a href="/assign-categories/<%= project.project_id %>" class="btn-edit">Edit Categories</a>
         </p>
     </div>

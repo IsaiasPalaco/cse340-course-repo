@@ -76,7 +76,7 @@ const processAssignCategoriesForm = async (req, res, next) => {
     }
 };
 
-// Export all the category controller methods cleanly
+// Export all the category controller methods
 export { 
     showCategoriesPage,
     showCategoryDetailsPage,
